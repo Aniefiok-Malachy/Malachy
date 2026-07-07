@@ -1,0 +1,6 @@
+{
+  "name": "Developer Portfolio",
+  "description": "An enterprise-quality personal portfolio website featuring dark/light modes, animations, interactive timelines, filterable skills, and GitHub API integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
