@@ -125,7 +125,7 @@ export default function Projects() {
         /* Loading Skeleton Grid */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="p-6 rounded-2xl border border-gray-100 dark:border-gray-900/50 bg-white/40 dark:bg-black/20 animate-pulse flex flex-col justify-between h-[230px]">
+            <div key={index} className="p-6 rounded-2xl border border-gray-100 dark:border-gray-900/50 bg-white/40 dark:bg-black/20 animate-pulse flex flex-col justify-between h-57.5">
               <div>
                 <div className="h-5 bg-gray-200 dark:bg-gray-800 rounded w-1/2 mb-4" />
                 <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-full mb-2.5" />
@@ -167,7 +167,7 @@ export default function Projects() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
-                  className="group p-6 rounded-2xl glass hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-[240px] relative overflow-hidden"
+                  className="group p-6 rounded-2xl glass hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-60 relative overflow-hidden"
                 >
                   <div>
                     {/* Header: Name & Language */}
