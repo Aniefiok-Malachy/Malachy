@@ -1,30 +1,22 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-const FALLBACK_PROJECTS = [
-  {
-    id: 'p1',
-    name: 'ledger-sync-sdk',
-    description: 'High-performance Stripe billing synchronization layer.',
-    language: 'TypeScript',
-    stargazers_count: 342,
-    forks_count: 48,
-    updated_at: '2026-06-25T14:22:00Z',
-    html_url: 'https://github.com',
-    homepage: null,
-  },
-];
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  const username = process.env.GITHUB_USERNAME || 'Aniefiok-Malachy';
+  const username = process.env.GITHUB_USERNAME;
   const token = process.env.GITHUB_TOKEN;
+
+  if (!username) {
+    return res.status(500).json({
+      error: "GITHUB_USERNAME is missing.",
+    });
+  }
 
   try {
     const headers: Record<string, string> = {
-      Accept: 'application/vnd.github+json',
-      'User-Agent': 'portfolio',
+      Accept: "application/vnd.github+json",
+      "User-Agent": "portfolio",
     };
 
     if (token) {
@@ -36,13 +28,16 @@ export default async function handler(
       { headers }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      return res.status(200).json(FALLBACK_PROJECTS);
+      return res.status(response.status).json({
+        githubStatus: response.status,
+        githubResponse: data,
+      });
     }
 
-    const repos = await response.json();
-
-    const formatted = repos
+    const repos = data
       .filter((repo: any) => !repo.fork)
       .map((repo: any) => ({
         id: repo.id,
@@ -57,8 +52,10 @@ export default async function handler(
       }))
       .slice(0, 12);
 
-    return res.status(200).json(formatted);
-  } catch (err) {
-    return res.status(200).json(FALLBACK_PROJECTS);
+    return res.status(200).json(repos);
+  } catch (error: any) {
+    return res.status(500).json({
+      error: error.message,
+    });
   }
 }
